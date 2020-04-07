@@ -1,0 +1,15 @@
+{
+  "name": "metar",
+  "version": "1.0.0",
+  "description": "",
+  "main": "test3.js",
+  "dependencies": {
+    "randexp": "^0.5.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node finalReport.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
