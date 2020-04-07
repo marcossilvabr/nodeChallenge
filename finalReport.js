@@ -17,7 +17,8 @@ const logReports = (reports) => {
         icaoCode: report.icaoCode,
         numberOfReports: 0,
         currentWindSpeed: 0,
-        averageWindSpeed: 0
+        averageWindSpeed: 0,
+        gusts: 0,
       });
     }
     const icao = listOfIcoes[report.icaoCode];
@@ -27,11 +28,13 @@ const logReports = (reports) => {
     icao.averageWindSpeed = Math.round(
       ((icao.currentWindSpeed - icao.averageWindSpeed) / icao.numberOfReports)
     + icao.averageWindSpeed);
+    icao.gusts = report.windInfo.gusts;
   });
 
+
   readlineInterface.on("close", () => {
-    Object.values(listOfIcoes).forEach((code) => {
-      const {icaoCode, currentWindSpeed, averageWindSpeed} = code;
+    return Object.values(listOfIcoes).forEach((code) => {
+      const {icaoCode, currentWindSpeed, averageWindSpeed, gusts} = code;
       console.log('------------------------');
       console.log("icaoCode: " + icaoCode);
       console.log("Current wind speed: " + currentWindSpeed);

@@ -12,16 +12,22 @@ const parseMetar = (metar) => {
     gusts: 0,
   }
 
-  if (windInfo.includes("G")) {
-    gustIndex = windInfo.indexOf("G");
-
-    wind.speed = parseInt(windInfo.slice(3, gustIndex), 10);
-    wind.gusts = parseInt(windInfo.slice(gustIndex + 1, gustIndex + 3), 10);
-  } else {
-    wind.speed = parseInt(
-      windInfo.slice(3, windInfo.indexOf(windInfo.match("[a-zA-Z]")), 10)
-    );
+  const getGustAndSpeed = () => {
+    const gustPosition = windInfo.indexOf("G");
+    wind.speed = parseInt(windInfo.slice(3, gustPosition), 10);
+    return wind.gusts = parseInt(windInfo.slice(gustPosition + 1, gustPosition + 3), 10);
   }
+
+  const getSpeed = () =>
+    wind.speed = parseInt(windInfo.slice(3, windInfo.indexOf(windInfo.match("[KM]")), 10));
+
+  windInfo.includes("G")
+    ? getGustAndSpeed()
+    : getSpeed();
+
+  windInfo.includes("KT") 
+    ? wind.speed = wind.speed / 2 
+    : null;
 
   return {
     icaoCode,
